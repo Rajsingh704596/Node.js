@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shorter Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+        <h1>URL Shorter Link</h1>
+        <form id="short-link">
+         <label for="url"> Enter the Url Link <input type="url" required autocomplete="off" name="url" id="url"></label>     
+         <label for="url_short"> Enter Shorter Url text <input type="text" required autocomplete="off" name="url_short" id="url_short"></label>     
+         <button type="submit">Generate short link</button>
+        </form>
+
+        <h2>Shortened URls</h2>
+        <ul id="shortened-urls">
+        </ul>
+    </div>
+
+    <script>
+        //  Html handling and displaying Urls in HTML  , fetchShortenedURL fun define
+        const fetchShortenedURL=async()=>{
+
+            const response =await fetch("/links");
+            const links=await response.json();       //response convert into json format and store in links
+            console.log("links",links);          // o/p- links get in object format
+
+            const list = document.getElementById("shortened-urls");  // display and add links to ul in Real time       
+            list.innerHTML= "";// Clear the current list before adding new items
+            
+            //for of loop used but in object we can't apply loop directly so used Object.entries() method- 
+            //Object.entries() static method returns an array of a given object's own enumerable string-keyed property key-value pairs.
+            for (const[shortCode, url] of Object.entries(links)){
+               const li=document.createElement('li');
+               const truncatedURL = url.length >= 30 ? `${url.slice(0,30)}...`: url;  //making long text url to short url using Truncate
+               li.innerHTML= ` <a href="/${shortCode}" target="_blank"> ${window.location.origin}/${shortCode} </a> - ${truncatedURL}`  
+               //here window.location.origin = http://localhost:3000     
+               list.appendChild(li)     //li tag append using append child method inside ul tag
+            }
+        }
+                                                               
+        document.getElementById("short-link").addEventListener('submit',async(event)=>{   //.addEventListener('event', callback fun)
+           
+            event.preventDefault();       
+
+            const formdata= new FormData(event.target);  // input field by user get by FormData(event.target) method , and Creates a new FormData() object is called constructor and it's more instance method  like .append(), .delete(), .entries(), .get(), .getAll(), .has()
+
+            // console.log(formdata)
+            //here we use .get() method- it returns the first value associated with a given key from within a FormData Object.
+           // console.log(formdata.get("url"));     //here url is key that basically attribute of name value  to get form input 1 value in console
+            const url = formdata.get("url");    
+            const shortCode = formdata.get("url_short");
+            console.log(url, shortCode)               // http://google.com  google-site
+
+            
+          // when form submit api call and send data to backend    (Passing HTML Form data to node.js)
+            try {
+                const response = await fetch("/shorten",{               //here we pass data not get , so use optional data in fetch  
+                    method:"POST",
+                    headers:{"Content-Type":"application/json"},        //note Content-Type first letter must be capital and type is json formate , so thats why we use JSON.stringify use to change object data into json sting formate          
+                    body:JSON.stringify({url, shortCode}),                //object change into JSON Sting formate
+                });  
+
+                if(response.ok){   
+
+                    fetchShortenedURL();   //when we get response data store successfully in backend we call fun to show that data in frontend  
+                    alert("Form submitted successfully");
+                    event.target.reset();    //agar data submit ho ja ye to input field reset kar tho   //Resetting Form Fields After Submission
+                }
+                else{
+                    const errorMessage =await response.text();             
+                    alert(errorMessage);
+                } 
+
+            } catch (error) {
+                console.log(error)                  //Error handling 
+            }    
+        })
+
+        //calling fetchLink to get links (fetching data from node.js) and show in html
+       fetchShortenedURL();      //fun. by default call and short url show in UI
+    </script>
+
+</body>
+</html>

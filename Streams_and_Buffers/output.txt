@@ -1,0 +1,11 @@
+here we use send data input.txt to output.txt using 
+Streams and Buffers method
+1 st file ---> 2 nd File 
+
+this process used same when we upload file or download file
+
+
+Streams in Node.js
+
+Streams allow us to read and write data efficiently.
+Let's process this file in chunks of 16 bytes!

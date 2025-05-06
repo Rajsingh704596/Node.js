@@ -1,6 +1,9 @@
 //! FileSystem module Asynchronous with Promises-
 
-const fs= require("fs")
+// const fs= require("fs")
+//!better way-
+const fs2 =require("fs/promises")
+
 const path=require("path")
 
 const fileName="fsPromises.txt";
@@ -12,13 +15,13 @@ const filePath=path.join(__dirname,fileName);
 //# .catch()- centralizes error handling, making it easy to debug and manage failures. 
 
 
-//$ jis bhi directory m us-me kon-si file hai ye dek-hne k li-ye (finding all file inside a folder)
+//$ fs.promises.readdir(__dirname)- current directory m kon kon si file hai ye dekhne k liye (in short finding all file inside a folder)
 
 // const filePath1=__dirname;  //^ current directory tk ka absolute path provide kar ta hai __dirname se
 // fs.promises
 //   .readdir(filePath1)  //^ directory m kit ne file hai ye show kar-ega
 //   .then((data)=>console.log(data))                
-//   .catch((err)=>console.log(err));           
+//   .catch((err)=>console.error(err));           
 
    //O/p-  jis directory(FileSystemModule4) m hai us ki sari file name show ho jay-ega
    //       [
@@ -31,27 +34,29 @@ const filePath=path.join(__dirname,fileName);
 
 //$ CRUD Operation-
 
-//@ 1. write to file with fs promises module-
-
+//@ 1. write to file with fs promises module-   
 //# create (Write a File): fs.promises.writeFile
 //# creates or overwrites a file with specified content.
 //# The writeFile() method writes data to a file asynchronously.
 //# If the file does not exist, it is created.
-//# If it exists, its content is replaced.
+//# If it exists, its content is replaced.   // if file already exist so writeFile method overwrite the data of that existing file, old data remove
+
 
 //* Syntax- fs.promises.writeFile(path, data, options).then().catch();
 //? path: Path to the file.
 //? data: Content to write.
 //? options: Encoding ('utf-8'), flags, etc. (optional).
 
+//^ 1st way
 // fs.promises
 //   .writeFile(filePath,"The first data write in fs file using promises","utf-8")
 //   .then(console.log("File created successfully"))  
 //   .catch((err)=>console.log(err))       
 
  //o/p- fsPromises.txt file create and also insert data(The first data write in fs file using promises)
+
  //! better way-
- const fs2 =require("fs/promises")
+
  fs2.writeFile(filePath,"The first data write in fs file using promises","utf-8")
   .then(console.log("File created successfully"))  
   .catch((err)=>console.log(err))       
@@ -74,6 +79,13 @@ const filePath=path.join(__dirname,fileName);
 
 //o/p-The first data write in fs file using promises
 
+
+ //! better way-
+ fs2.readFile(filePath,"utf-8")
+  .then((data)=>console.log(data))  
+  .catch((err)=>console.log(err))  
+
+
 //@ 3. Updating File data with fs promises-
 //# Update (Append Content to a file): appendFile()
 //# Adds content to the end of a file.
@@ -90,6 +102,12 @@ const filePath=path.join(__dirname,fileName);
 //   .catch((err)=>console.log(err)) 
 
 //o/p-File updated successfully
+
+//!  better way-
+// fs2.appendFile(filePath,"\nThe Updated data write in fs file using promises","utf-8")
+//   .then(console.log("File updated successfully"))  
+//   .catch((err)=>console.log(err)) 
+
 
 //@ 4. Deleting files using fs promises
 //# Delete (Remove a file): unlink()

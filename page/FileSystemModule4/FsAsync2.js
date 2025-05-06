@@ -1,4 +1,4 @@
-//! CRUD operation Fs in Asynchronous way-
+//! CRUD operation Fs in Asynchronous way (with callback method)- 
 
 const path=require("path");
 const fs=require("fs");
@@ -32,11 +32,13 @@ const filePath=path.join(__dirname, fileName);
 //? options: (Optional) An Object or string specifying the encoding ('utf-8') or flag ('r' for reading).
 //? callback: A function with 2 parameter(err, data).
 
+//^ 1 st way using .toString() method  (so buffer data change into string format)
 // fs.readFile(filePath, (err, data)=>{
 //     if(err) console.error(err);
 //     else console.log(data.toString());                               //o/p-The data initialize into file
 // })
 
+//^ 2nd way (better) using "utf-8" 
 // fs.readFile(filePath, "utf-8", (err, data)=>{
 //     if(err) console.error(err);
 //     else console.log(data);                               //o/p-The data initialize into file
@@ -49,12 +51,12 @@ const filePath=path.join(__dirname, fileName);
 //# fs.appendFile(): Appends data to a file. If the file doesn't exist, it is created.
 //* syntax- fs.appendFile(path, data, options, callback);
 
-// fs.appendFile(filePath, "\nThe data initialize Updated data into file", "utf-8",
-//       (err)=>{
-//         if(err) console.error(err);
-//         else console.log("File has been saved");            //o/p- The data initialize into file
-//                                                             //     The data initialize Updated data into file
-//     })
+fs.appendFile(filePath, "\nThe data initialize Updated data into file", "utf-8",
+      (err)=>{
+        if(err) console.error(err);
+        else console.log("File has been saved");            //o/p- The data initialize into file
+                                                              //   The data initialize Updated data into file
+    })
 
 
  //@4. Delete file
@@ -71,11 +73,11 @@ const filePath=path.join(__dirname, fileName);
  //@5 Rename file  
  //* Syntax- fs.rename(oldpath, newpath, callback)
 
- const newUpdatedFileName="updateTest2.txt";
- const newFilePath= path.join(__dirname, newUpdatedFileName);
+//  const newUpdatedFileName="updateTest2.txt";
+//  const newFilePath= path.join(__dirname, newUpdatedFileName);
  
- fs.rename(filePath, newFilePath,
-      (err)=>{
-        if(err) console.error(err);
-        else console.log("File name changed");            //o/p- File has been saved    ( FsAsync.txt k name se file create ho jay-egi jis me data add ho jay-ega  )
-    })
+//  fs.rename(filePath, newFilePath,
+//       (err)=>{
+//         if(err) console.error(err);
+//         else console.log("File name changed");            //o/p- File name changed   ( FsAsync.txt ka name change hoke updateTest2.txt ho jayega)
+//     })

@@ -1,6 +1,7 @@
 //!  npm -
 //# It is a popular package manager which comes builded with Node.js
 //# It is a CLI tool used to install, update, and remove external packages.
+//# npm doesn't have any official full form ,"npm is not acronym".
 
 
 // Here are some **useful and important** `npm` (Node Package Manager) commands that every developer working with Node.js should know:
@@ -175,13 +176,14 @@
 //npm view <package-name> versions                      //e.g- npm view express versions   //o/p- express all versions show
 
 
+//! Semantic Versioning System (1.0.0- MajorVersion.MinorVer.PatchVer) -  Most of the npm packages use Semantic Versioning System or SemVer. Note: Some packages like typescript, react-native don’t follow it. 
 //^install particular package version--          //npm install express@latest   -latest express version install
 
 //npm install <package-name>@<version>
 //e.g.- 
-    //      npm install express@4.0.0            //@   ^4.0.0 version install (minor or patch update include means 4.2.2  but not install 5.0.0) 
+    //      npm install express@4.0.0            //@   ^4.0.0 version install (minor or patch update include means 4.2.2  but not install 5.0.0 , b/c Caret sign) 
     //      npm install express@4.0.0--save-exact   //@  To install exact version
-    //      npm install express@~4.0.0           //@ ~4.0.0 install patch update only means 4.0.2 allow but not install 4.2.2
+    //      npm install express@~4.0.0           //@ ~4.0.0 install patch update only means 4.0.2 allow but not install 4.2.2 , b/c Tilde sign
     //      npm install express@4.2.x            //@ means 4.2.1 allow but not allowed 4.3.0
 
 //todo- Note ^4.17.1 is equivalent to 4.x and ~4.17.1 is equivalent to 4.17.xnp
@@ -193,7 +195,7 @@
 
 //npm remove <package-name>   //@ Remove that package from package.json
 
-//npm update              //@ this update all the packages in out project. but it follows the range defined in package.json. it doesn't update to absolute latest version.
+//npm update              //@ this update all the packages in our project. but it follows the range defined in package.json. it doesn't update to absolute latest version.    // Note - but package.json it's not show
 
 //npx npm-check-updates  //@npx is CLI tool that comes with npm , it is used to execute a package without requiring you to install globally or locally. it is useful for temporary usage of a package.
                         //@ npm-check-updates is a package which we can use to upgrade our package to absolute latest versions. (but not show in package.json only show in package-lock.json)
@@ -213,10 +215,13 @@
 //npm remove -g <package-name>
 
 
-//# Development dependency- 
-//@ Dev. dependency are the packages that aren't needed for functioning of our project in production. this can be formatting, linting, testing and so on.
+//# Development dependency in package.json- 
+//@ Dev. dependency are the packages that aren't needed for functioning of our project in production (only development time use). this can be formatting, linting, testing and so on.
 // npm install -D eslint        //@ this will install eslint as a development dependency (inside package.json named devDependencies/eslint)
 
 //* if we use:  npm install --production  , those package(dev.dep.) won't be installed. but they will be installed if we don't use production flag
 
+
+//# package-lock.json - node_modules all third party package exact version manage and nested dependencies detailed record store. (In short - project ki exact dependency versions ko lock karne k liye hota hai)
+//# package.json - here proj . related dev dependencies, scripts and Meta data store (In short- ye project ka overall blue print hai)
 

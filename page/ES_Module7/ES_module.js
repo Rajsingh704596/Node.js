@@ -8,6 +8,6 @@
 
 //# Use 'import and export' instead of 'require and module.exports' 
  
-//# After Node.js v14.8, we can use 'top-level await' when ES Modules are enabled.
+//# After Node.js v14.8, we can use 'top-level await' when ES Modules are enabled. It means no need to create async fun directly use try catch with await and perform asynchronous operation.
 
 

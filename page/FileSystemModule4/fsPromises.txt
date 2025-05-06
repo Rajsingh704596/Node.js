@@ -1,1 +1,2 @@
 The first data write in fs file using promises
+The Updated data write in fs file using promises

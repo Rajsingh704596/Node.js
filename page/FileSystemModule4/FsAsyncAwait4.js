@@ -2,19 +2,19 @@
 const fs = require("fs/promises");
 const path = require("path");
 
-const fileName = "asyncFile.txt";
+const fileName = "asyncAwaitFile.txt";
 const filePath = path.join(__dirname, fileName);
 
 // const filePath1 = __dirname;
-
-// fs.promises
-//   .readdir(filePath1)
+//^ directory inside all file name show using File system module Promises method
+// fs.readdir(filePath1)
 //   .then((data) => console.log(data))
 //   .catch((err) => console.log(err));
 
+//^ directory inside all file name show using File system module AsyncAwait method
 // const readFolder = async () => {
 //   try {
-//     const res = await fs.promises.readdir(filePath1);
+//     const res = await fs.readdir(filePath1);
 //     console.log(res);
 //   } catch (error) {
 //     console.error(error);
@@ -51,16 +51,16 @@ const filePath = path.join(__dirname, fileName);
 //? path: The file path to read.
 //? options: Optional. Can specify encoding (e.g., 'utf8') or return a Buffer if no encoding is provided.
 //*-------------------------------------------------------------------------------------*
-// const readFileExample = async () => {
-//   try {
-//     const data = await fs.readFile(filePath, "utf-8");
-//     console.log(data);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+const readFileExample = async () => {
+  try {
+    const data = await fs.readFile(filePath, "utf-8");
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-// readFileExample();
+readFileExample();
 
 
 //@ 3. Update a file 
@@ -90,13 +90,13 @@ const filePath = path.join(__dirname, fileName);
 //? path: The file path to delete.
 //*-------------------------------------------------------------------------------------*
 
-const deleteFileExample = async () => {
-  try {
-    await fs.unlink(filePath);
-    console.log("File deleted successfully!");
-  } catch (error) {
-    console.error("Error deleting file:", error.message);
-  }
-};
+// const deleteFileExample = async () => {
+//   try {
+//     await fs.unlink(filePath);
+//     console.log("File deleted successfully!");
+//   } catch (error) {
+//     console.error("Error deleting file:", error.message);
+//   }
+// };
 
-deleteFileExample();
+// deleteFileExample();
